@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 export interface AuthResponseData {
   idToken: string;
@@ -32,7 +33,7 @@ export class AuthService {
         returnSecureToken: true
       },
       {
-        params: new HttpParams().set('key', 'AIzaSyCA0MVLqnWmgZQmueEyBFP1MMdezqeToBA')
+        params: new HttpParams().set('key', environment.firebaseAPIKey)
       }).pipe(
         catchError(this.handleError),
         tap(resData => this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn))
@@ -48,7 +49,7 @@ export class AuthService {
         returnSecureToken: true
       },
       {
-        params: new HttpParams().set('key', 'AIzaSyCA0MVLqnWmgZQmueEyBFP1MMdezqeToBA')
+        params: new HttpParams().set('key', environment.firebaseAPIKey)
       }).pipe(
         catchError(this.handleError),
         tap(resData => this.handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn))
